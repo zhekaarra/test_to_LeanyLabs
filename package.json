@@ -16,6 +16,7 @@
   ],
   "author": "Yevhenii Aryhstovyhc <zhekaarra@gmail.com>",
   "license": "ISC",
+  "type": "module",
   "dependencies": {
     "config": "^3.3.6",
     "express": "^4.17.1",

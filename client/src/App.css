@@ -1,0 +1,9 @@
+.container {
+    width: 80vw;
+    margin: 10vh 10vw 10vh 10vw;
+}
+.container-button {
+    margin-top: 3vh;
+    display: flex;
+    flex-direction: row-reverse;
+}
