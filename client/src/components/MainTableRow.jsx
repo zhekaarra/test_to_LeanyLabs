@@ -6,7 +6,6 @@ import {
   Checkbox,
 } from "@material-ui/core";
 
-import { useState } from "react";
 const MainTableRow = (props) => {
   const { data, checked, setChecked } = props;
 
@@ -14,15 +13,15 @@ const MainTableRow = (props) => {
     <>
       {data.map((elem) => {
         return (
-          <TableRow key={elem.id}>
+          <TableRow key={elem._id}>
             <TableCell>
               <Grid container>
                 <Grid>
                   <Checkbox
-                    checked={elem.id === checked}
+                    checked={elem._id === checked}
                     onClick={(event) => {
                       if (!event.currentTarget.checked) {
-                        setChecked(elem.id);
+                        setChecked(elem._id);
                       }
                     }}
                     id={elem.id}

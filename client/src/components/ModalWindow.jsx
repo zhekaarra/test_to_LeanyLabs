@@ -9,8 +9,9 @@ import {
 } from "@material-ui/core";
 
 import { useState, useEffect } from "react";
-
 import "../css/modal.css";
+import {useHttp} from "../hook/htttp.hook";
+
 const ModalWindow = (props) => {
   const { open, data, setData, setOpen, mode, checked } = props;
   const [newCategory, setNewCategory] = useState("");
@@ -18,6 +19,8 @@ const ModalWindow = (props) => {
   const [newModel, setNewModel] = useState("");
   const [newPrice, setNewPrice] = useState("");
   const [editData, setEditData] = useState({});
+  const {request} = useHttp();
+
 
   const generateId = () => {
     const id = Math.floor(Math.random() * (1000 - 1) + 1);
@@ -30,7 +33,7 @@ const ModalWindow = (props) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleAddElem = (event) => {
+  const handleAddElem = async (event) => {
     event.preventDefault();
     const newData = {
       id: generateId(),
@@ -39,6 +42,8 @@ const ModalWindow = (props) => {
       model: newModel,
       price: newPrice,
     };
+    const dataUp = await request('api/posts','POST',{...newData})
+    console.log(dataUp);
     setData([...data, newData]);
     setOpen(false);
   };

@@ -1,16 +1,16 @@
-import Post from "./Post.js";
+import Data from "./Post.js";
 
 class PostService {
     async create(post){
         try {
-            const createdPost = await Post.create(post);
+            const createdPost = await Data.create(post);
             return createdPost;
         }catch (e){
             console.log(e.message);
         }
     };
     async getAll(){
-        const posts = await Post.find();
+        const posts = await Data.find();
         return posts;
     };
 
@@ -19,7 +19,7 @@ class PostService {
         if (!post._id) {
             throw new  Error('Id not specified');
         }
-        const updatedPost = await Post.findByIdAndUpdate(post._id, post, {new: true});
+        const updatedPost = await Data.findByIdAndUpdate(post._id, post, {new: true});
         return updatedPost;
     };
     async delete(id){
@@ -27,7 +27,7 @@ class PostService {
         if (!id) {
             throw new  Error('Id not specified');
         }
-        const post = await Post.findByIdAndDelete(id);
+        const post = await Data.findByIdAndDelete(id);
         return post;
 
     };

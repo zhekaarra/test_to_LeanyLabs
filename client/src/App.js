@@ -1,24 +1,32 @@
 import "./App.css";
 
 import { TableContainer, Table, Button, Input } from "@material-ui/core";
-/* import MainTable from "./components/MainTable"; */
+
 import MainTableHead from "./components/MainTableHead";
 import MainTableRow from "./components/MainTableRow";
 import ModalWindow from "./components/ModalWindow";
-import { useState } from "react";
+import {useState, useEffect} from "react";
 import Header from "./components/Header";
-function App() {
+import {useHttp} from "./hook/htttp.hook";
+
+ function App() {
+    const {request} = useHttp();
     const [data, setData] = useState([]);
     const [checked, setChecked] = useState(null);
     const [open, setOpen] = useState(false);
     const [mode, setMode] = useState("");
+    useEffect( async () => {
+    const res = await request('api/posts','GET');
+        setData(res);
+    },[])
+
     const handleAdd = () => {
         setMode("add");
         setOpen(true);
     };
-    const handleDelete = () => {
-        setMode("delete");
-        const newData = data.filter((elem) => elem.id !== checked);
+    const handleDelete = async () => {
+        await request(`api/posts/${checked}`,'DELETE')
+        const newData = await data.filter((elem) => elem._id !== checked);
         setData([...newData]);
     };
     const handleEdit = () => {
