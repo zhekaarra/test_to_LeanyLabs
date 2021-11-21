@@ -1,6 +1,6 @@
 import "./App.css";
-
-import { TableContainer, Table, Button, Input } from "@material-ui/core";
+import "./css/MuiButton-contained.css";
+import {TableContainer, Table, Button} from "@material-ui/core";
 
 import MainTableHead from "./components/MainTableHead";
 import MainTableRow from "./components/MainTableRow";
@@ -9,24 +9,26 @@ import {useState, useEffect} from "react";
 import Header from "./components/Header";
 import {useHttp} from "./hook/htttp.hook";
 
- function App() {
+function App() {
     const {request} = useHttp();
     const [data, setData] = useState([]);
     const [checked, setChecked] = useState(null);
     const [open, setOpen] = useState(false);
     const [mode, setMode] = useState("");
-    useEffect( async () => {
-    const res = await request('api/posts','GET');
-        setData(res);
-    },[])
 
-    const handleAdd = () => {
+    useEffect(async () => {
+        const res = await request('api/posts', 'GET');
+        setData(res);
+    }, [])
+
+    const handleAdd = async () => {
         setMode("add");
         setOpen(true);
     };
     const handleDelete = async () => {
-        await request(`api/posts/${checked}`,'DELETE')
+        await request(`api/posts/${checked}`, 'DELETE')
         const newData = await data.filter((elem) => elem._id !== checked);
+        setChecked(false)
         setData([...newData]);
     };
     const handleEdit = () => {
@@ -35,7 +37,7 @@ import {useHttp} from "./hook/htttp.hook";
     };
     return (
         <>
-          <Header/>
+            <Header/>
             <ModalWindow
                 checked={checked}
                 open={open}
@@ -47,7 +49,7 @@ import {useHttp} from "./hook/htttp.hook";
             <main className="container">
                 <TableContainer>
                     <Table aria-label="simple table">
-                        <MainTableHead />
+                        <MainTableHead/>
                         <MainTableRow
                             data={data}
                             setData={setData}
@@ -57,13 +59,30 @@ import {useHttp} from "./hook/htttp.hook";
                     </Table>
                 </TableContainer>
                 <div className="container-button">
-                    <Button variant="contained" onClick={handleAdd}>
+                    <Button
+                        style={{backgroundColor: '#2BA382'}}
+                        color='primary'
+                        variant="contained"
+                        onClick={handleAdd}
+                    >
                         ADD
                     </Button>
-                    <Button variant="contained" onClick={handleEdit}>
+                    <Button
+                        style={{backgroundColor: '#2BA382'}}
+                        color='primary'
+                        variant="contained"
+                        onClick={handleEdit}
+                        disabled={!checked}
+                    >
                         EDIT
                     </Button>
-                    <Button variant="contained" onClick={handleDelete}>
+                    <Button
+                        style={{backgroundColor: '#D25F5F'}}
+                        color='primary'
+                        variant="contained"
+                        onClick={handleDelete}
+                        disabled={!checked}
+                    >
                         DELETE
                     </Button>
                 </div>

@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 
 const MainTableRow = (props) => {
-  const { data, checked, setChecked } = props;
+  const { data, checked, setChecked, defaultChecked, setDefaultChecked } = props;
 
   return (
     <>
@@ -22,6 +22,9 @@ const MainTableRow = (props) => {
                     onClick={(event) => {
                       if (!event.currentTarget.checked) {
                         setChecked(elem._id);
+                      }
+                      if (event.currentTarget.checked){
+                        setChecked(false);
                       }
                     }}
                     id={elem.id}

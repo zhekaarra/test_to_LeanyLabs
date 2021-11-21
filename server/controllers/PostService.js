@@ -1,4 +1,4 @@
-import Data from "./Post.js";
+import Data from "../model/Post.js";
 
 class PostService {
     async create(post){
@@ -15,7 +15,6 @@ class PostService {
     };
 
     async update(post){
-
         if (!post._id) {
             throw new  Error('Id not specified');
         }
